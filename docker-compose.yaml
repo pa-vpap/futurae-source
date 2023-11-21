@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+ flask-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: futurae
+    ports:
+      - 5000:5000
+    environment:
+      - CLOUDSDK_CONFIG=/gcp/config
+      - GOOGLE_APPLICATION_CREDENTIALS=/gcp/config/application_default_credentials.json
+    volumes:
+      - ~/.config/gcloud/application_default_credentials.json:/gcp/config/application_default_credentials.json:ro
