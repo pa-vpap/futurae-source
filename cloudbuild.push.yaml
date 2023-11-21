@@ -1,0 +1,11 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/futurae:$COMMIT_SHA', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/futurae:$COMMIT_SHA']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['auth', 'configure-docker']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['tag', 'gcr.io/$PROJECT_ID/futurae:$COMMIT_SHA', 'gcr.io/$PROJECT_ID/futurae-app/futurae:$COMMIT_SHA']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/futurae-app/futurae-app:$COMMIT_SHA']
