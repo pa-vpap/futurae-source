@@ -18,6 +18,7 @@ EXPOSE 5000
 
 # Define environment variable for Flask to run in production mode
 ENV FLASK_ENV=production
+ENV FLASK_APP=app
 
 # Run the application
-CMD ["python", "app.py"]
+CMD ["flask", "run", "--host=0.0.0.0"]

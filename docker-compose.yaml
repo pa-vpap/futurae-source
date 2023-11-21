@@ -1,7 +1,7 @@
 version: '3'
 
 services:
- flask-app:
+ futurae-app:
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,6 +9,8 @@ services:
     ports:
       - 5000:5000
     environment:
+      - PROJECT_ID=prj-futurae-d51c
+      - BUCKET_NAME=prj-futurae-d51c-futurae-bucket
       - CLOUDSDK_CONFIG=/gcp/config
       - GOOGLE_APPLICATION_CREDENTIALS=/gcp/config/application_default_credentials.json
     volumes:

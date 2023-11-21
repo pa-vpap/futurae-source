@@ -1,16 +1,24 @@
+import os
 from flask import Flask, jsonify
 from google.cloud import storage
 
 app = Flask(__name__)
 
-# Replace 'your-project-id' and 'your-bucket-name' with your actual project ID and bucket name
-project_id = 'prj-futurae-d51c'
-bucket_name = 'prj-futurae-d51c-futurae-bucket'
+# Read from Env vars 'your-project-id' and 'your-bucket-name' with your actual project ID and bucket name
+project_id = os.environ.get('PROJECT_ID', None)
+bucket_name = os.environ.get('BUCKET_NAME', None)
+
+# Check if project_id is empty
+if project_id is None or project_id == '':
+    raise ValueError('PROJECT_ID environment variable is not set or empty.')
+
+# Check if bucket_name is empty
+if bucket_name is None or bucket_name == '':
+    raise ValueError('BUCKET_NAME environment variable is not set or empty.')
 
 # Initialize the GCS client
 storage_client = storage.Client(project=project_id)
 bucket = storage_client.get_bucket(bucket_name)
-
 
 @app.route('/list_all', methods=['GET'])
 def list_all_objects():
