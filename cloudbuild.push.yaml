@@ -1,10 +1,13 @@
 steps:
 - id: "build"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'europe-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae', '.']
+  args: ['build', '-t', 'europe-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae$TAG_NAME', '.']
   waitFor: ['-']
 
 - id: "retag"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['tag',  'europe-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae', 'europe-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae:$COMMIT_SHA']
+  args: ['push',  'europe-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae$TAG_NAME']
+
+images:
+  - 'europe-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae$TAG_NAME'
 
