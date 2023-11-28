@@ -2,11 +2,11 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'europe-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae:$COMMIT_SHA', '.']
 
-# Scan the Docker image using Snyk
-- name: 'snyk/snyk-cli:latest'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      snyk test --docker europe-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae:$COMMIT_SHA
+# Scan the Docker image using Grype
+  - name: 'anchore/grype:latest'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        grype -v jsoneurope-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae:$COMMIT_SHA
  
