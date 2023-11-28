@@ -1,4 +1,8 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'europe-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae:$COMMIT_SHA', '.']
+
+# Scan the Docker image using Grype
+- name: 'anchore/grype:latest'
+  args: ['europe-west1-docker.pkg.dev/${PROJECT_ID}/futurae-app/futurae:$COMMIT_SHA']
  
